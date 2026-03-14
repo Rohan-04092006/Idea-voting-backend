@@ -12,13 +12,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+            .cors(cors -> {})   // enable CORS
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/register").permitAll()
-                .requestMatchers("/api/ideas/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .httpBasic();   // enable Basic Authentication
+                    .anyRequest().permitAll()
+            );
 
         return http.build();
     }
