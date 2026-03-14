@@ -2,23 +2,28 @@ package com.idea.voting.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
+    public CorsFilter corsFilter() {
 
-                registry.addMapping("/**")
-                        .allowedOrigins("https://idea-voting-frontend.onrender.com")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.addAllowedOrigin("https://idea-voting-frontend.onrender.com");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
     }
 }
