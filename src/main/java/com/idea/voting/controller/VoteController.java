@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/votes")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://idea-voting-backend.onrender.com")
 public class VoteController {
 	@Autowired
     private  VoteService voteService;
