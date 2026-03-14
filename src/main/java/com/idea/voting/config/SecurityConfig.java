@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -15,6 +16,7 @@ public class SecurityConfig {
 	        .cors(cors -> {})
 	        .csrf(csrf -> csrf.disable())
 	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	            .requestMatchers("/api/users/register").permitAll()
 	            .requestMatchers("/api/users/login").permitAll()
 	            .anyRequest().authenticated()
