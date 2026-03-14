@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/ideas")
-@CrossOrigin(origins = "https://idea-voting-backend.onrender.com")
+@CrossOrigin(origins = "https://idea-voting-frontend.onrender.com")
 public class IdeaController {
 
     private final IdeaService ideaService;

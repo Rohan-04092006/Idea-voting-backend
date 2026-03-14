@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "https://idea-voting-backend.onrender.com")
+@CrossOrigin(origins = "https://idea-voting-frontend.onrender.com")
 public class UserController {
 
     private final UserService userService;
