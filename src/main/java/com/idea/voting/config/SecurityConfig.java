@@ -16,16 +16,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
-
-                // allow register and login
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/users/register").permitAll()
                 .requestMatchers("/api/users/login").permitAll()
-
-                // allow preflight requests
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                // everything else requires login
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             );
 
         return http.build();
