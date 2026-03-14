@@ -8,18 +8,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-            .cors(cors -> {})
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/register").permitAll()
-                .requestMatchers("/api/auth/login").permitAll()
-                .anyRequest().authenticated()
-            );
+	    http
+	        .cors(cors -> {})
+	        .csrf(csrf -> csrf.disable())
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/api/users/register").permitAll()
+	            .requestMatchers("/api/users/login").permitAll()
+	            .anyRequest().authenticated()
+	        );
 
-        return http.build();
-    }
+	    return http.build();
+	}
 }
