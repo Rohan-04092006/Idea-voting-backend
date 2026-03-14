@@ -12,10 +12,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .cors(cors -> {})   // enable CORS
+            .cors(cors -> {})
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .anyRequest().permitAll()
+                .requestMatchers("/api/users/register").permitAll()
+                .requestMatchers("/api/auth/login").permitAll()
+                .anyRequest().authenticated()
             );
 
         return http.build();
