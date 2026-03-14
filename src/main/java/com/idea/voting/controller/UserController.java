@@ -26,21 +26,22 @@ public class UserController {
 
     // Register user
     @PostMapping("/register")
-    public ResponseEntity<IdeaDTO.UserSummary> register(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
+        try {
 
-        String username = body.get("username");
-        String email = body.get("email");
-        String password = body.get("password");
+            String username = body.get("username");
+            String email = body.get("email");
+            String password = body.get("password");
 
-        if (username == null || email == null || password == null) {
-            return ResponseEntity.badRequest().build();
+            User user = userService.register(username, email, password);
+
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(userService.toSummary(user));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", e.getMessage()));
         }
-
-        User user = userService.register(username, email, password);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(userService.toSummary(user));
     }
 
     // Login user
